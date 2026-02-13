@@ -62,20 +62,20 @@ if uploaded_file is not None :
         st.subheader("📊 Visual Insights")
         chart_col1, chart_col2 = st.columns(2)
     
-    with chart_col1:
-        st.write("Profits by Country")
-        st.bar_chart(df.groupby('Country')['Profits'].sum())
+        with chart_col1:
+           st.write("Profits by Country")
+           st.bar_chart(df.groupby('Country')['Profits'].sum())
         
-    with chart_col2:
+        with chart_col2:
        
-        months_order = ['January', 'February', 'March', 'April', 'May', 'June', 
+            months_order = ['January', 'February', 'March', 'April', 'May', 'June', 
                 'July', 'August', 'September', 'October', 'November', 'December']
-        df['Month'] = pd.Categorical(df['Month'], categories=months_order, ordered=True)
+            df['Month'] = pd.Categorical(df['Month'], categories=months_order, ordered=True)
 
        
-        st.line_chart(df.groupby('Month')['Profits'].sum())
-        st.write("Sales Type Distribution")
-        st.line_chart(df.groupby('Month')['Profits'].sum())
+            st.line_chart(df.groupby('Month')['Profits'].sum())
+            st.write("Sales Type Distribution")
+            st.line_chart(df.groupby('Month')['Profits'].sum())
 else:
     st.info("☝️ Please upload an Excel file to start the analysis.")    
     
