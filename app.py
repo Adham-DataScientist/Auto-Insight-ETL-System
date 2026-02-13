@@ -78,4 +78,4 @@ if uploaded_file is not None :
             st.line_chart(df.groupby('Month')['Profits'].sum())
 else:
     st.info("☝️ (Browse files)  يرجي اختيار الملف من")    
-    
+    # Final Test Update 🚀
