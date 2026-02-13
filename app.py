@@ -19,7 +19,7 @@ st.markdown("""
 
 
 st.title("📊 Adham_Auto-Insight ETL System")
-st.markdown("اهلا ومرحبا بكم في موقع ادهم ابو عوض لتحليل البيانات ")
+st.markdown("اهلا ومرحبا بكم في موقع ادهم ابو عوض\n  لتحليل البيانات ")
 
 uploaded_file = st.file_uploader("Updatee_Sales_Analysis_Report", type=['xlsx'])
 
@@ -77,5 +77,5 @@ if uploaded_file is not None :
             st.write("Sales Type Distribution")
             st.line_chart(df.groupby('Month')['Profits'].sum())
 else:
-    st.info("☝️ يرجي اختيار الملف من الأعلي")    
+    st.info("☝️ (Browse files)يرجي اختيار الملف من")    
     
