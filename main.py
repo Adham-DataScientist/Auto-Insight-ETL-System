@@ -26,29 +26,29 @@ def main ():
             
             df['paid_by_years'] = df.groupby("Year")['Paid'].sum().plot(kind="bar",fontsize=14,title="paid_of_year",color=["red" ,"yellow"])
             plt.savefig("Chart/paid_of_year.png")
-            plt.show()
+            plt.close()
             
             df['Profits_by_years'] = df.groupby("Year")['Profits'].sum().plot(kind="barh",title="Profits_of_year",fontsize=14, color=["green" ,"red"])
             plt.savefig("Chart/Profits_of_year.png")
-            plt.show()
+            plt.close()
             
             df['Max_of_Paid'] = df["Paid"].max()
         
             df['profit_by_country'] = df.groupby("Country")["Profits"].max().plot(kind="barh",title="Max_profit",fontsize=12,color=['red' ,'green' ,'yellow','blue'])
             plt.savefig("Chart/profit_by_country.png")
-            plt.show()
+            plt.close()
             
             df["country_of_Sales type"] = df.groupby("Country")["Paid"].sum().plot(kind="barh" , title="country_of_Paid",fontsize=12,color=['red' ,'yellow' ,'green','blue'])
             plt.savefig("Chart/country_of_Sales type.png")
-            plt.show()
+            plt.close()
             
             df["Paid_of_Sales type"] = df.groupby("Sales type")["Paid"].sum().plot(kind="pie" ,title="Paid_of_Sales type",fontsize=12,autopct="%1.1f%%", color=['red' ,'yellow'])
             plt.savefig("Chart/Paid_of_Sales type.png")
-            plt.show()
+            plt.close()
             
             df["Profits_by_Direction"] = df.groupby("Direction")["Profits"].sum().plot(kind="line" ,title="Profits_by_Direction",fontsize=12)
             plt.savefig("Chart/Profits_by_Direction.png")
-            plt.show()
+            plt.close()
             
             
             outpot_file =os.path.join("Outpot" , "Final_Shipping_Data.xlsx")
