@@ -24,39 +24,43 @@ st.markdown("Welcome MyDear ! This dashboard previews your processed data and AI
 uploaded_file = st.file_uploader("Updatee_Sales_Analysis_Report", type=['xlsx'])
 
 if uploaded_file is not None :
-    df = pd.read_excel(uploaded_file)
     
-    df = proccess_date(df)
+    if st.button("🚀 Start Data Analysis"):
+        df = pd.read_excel(uploaded_file)
     
-    st.subheader("📑 Processed Data Preview")
-    st.dataframe(df.head()) 
+        df = proccess_date(df)
+    
+        st.subheader("📑 Processed Data Preview")
+        st.dataframe(df.head()) 
+        
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Total Rows", len(df))
+        col2.metric("Total Profits", f"${df['Profits'].sum():,.2f}")
+        col3.metric("Avg Price", f"${df['Price'].mean():,.2f}")
 
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Total Rows", len(df))
-    col2.metric("Total Profits", f"${df['Profits'].sum():,.2f}")
-    col3.metric("Avg Price", f"${df['Price'].mean():,.2f}")
-
-    st.subheader("📈 Business Insights")
-    fig, ax = plt.subplots()
-    df.groupby('Country')['Profits'].sum().plot(kind='bar', ax=ax)
-    st.pyplot(fig)
-    
-    
-    st.divider() 
-    
-    st.subheader("🤖 AI Profit Predictor")
-    price_input = st.number_input("Enter Price to predict profit:", min_value=0, value=1000)
     
 
-    test_data = pd.DataFrame([[price_input]], columns=['Price'])
-
-    predicted_profit = price_input * 0.25 
+        st.subheader("📈 Business Insights")
+        fig, ax = plt.subplots()
+        df.groupby('Country')['Profits'].sum().plot(kind='bar', ax=ax)
+        st.pyplot(fig)
     
-    st.write(f"Estimated Profit for ${price_input}: **${predicted_profit:,.2f}**")
+    
+        st.divider() 
+    
+        st.subheader("🤖 AI Profit Predictor")
+        price_input = st.number_input("Enter Price to predict profit:", min_value=0, value=1000)
+    
+
+        test_data = pd.DataFrame([[price_input]], columns=['Price'])
+
+        predicted_profit = price_input * 0.25 
+    
+        st.write(f"Estimated Profit for ${price_input}: **${predicted_profit:,.2f}**")
 
 
-    st.subheader("📊 Visual Insights")
-    chart_col1, chart_col2 = st.columns(2)
+        st.subheader("📊 Visual Insights")
+        chart_col1, chart_col2 = st.columns(2)
     
     with chart_col1:
         st.write("Profits by Country")
