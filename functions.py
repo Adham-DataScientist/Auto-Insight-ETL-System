@@ -1,8 +1,9 @@
 import pandas as pd 
 import os 
 import matplotlib.pyplot as plt 
-import tkinter as tk 
-from tkinter import filedialog
+
+#import tkinter as tk 
+#from tkinter import filedialog
 import shutil
 import time
 from  sklearn.linear_model import LinearRegression
