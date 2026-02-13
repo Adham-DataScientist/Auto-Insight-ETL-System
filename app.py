@@ -77,5 +77,5 @@ if uploaded_file is not None :
             st.write("Sales Type Distribution")
             st.line_chart(df.groupby('Month')['Profits'].sum())
 else:
-    st.info("☝️ (Browse files)يرجي اختيار الملف من")    
+    st.info("☝️ (Browse files)  يرجي اختيار الملف من")    
     
