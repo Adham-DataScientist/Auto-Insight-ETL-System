@@ -19,7 +19,7 @@ st.markdown("""
 
 
 st.title("📊 Adham_Auto-Insight ETL System")
-st.markdown("اهلا ومرحبا بكم في موقع ادهم ابو عوض \n \n  لتحليل البيانات ")
+st.markdown("اهلا ومرحبا بكم في موقع ادهم ابو عوض \n  لتحليل البيانات ")
 
 uploaded_file = st.file_uploader("Updatee_Sales_Analysis_Report", type=['xlsx'])
 
