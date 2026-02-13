@@ -42,8 +42,8 @@ def main ():
             plt.savefig("Chart/country_of_Sales type.png")
             plt.close()
             
-            df["Paid_of_Sales type"] = df.groupby("Sales type")["Paid"].sum().plot(kind="pie" ,title="Paid_of_Sales type",fontsize=12,autopct="%1.1f%%", color=['red' ,'yellow'])
-            plt.savefig("Chart/Paid_of_Sales type.png")
+            df["Paid_of_Sales_type"] = df.groupby("Sales type")["Paid"].sum().plot(kind="pie" ,title="Paid_of_Sales type",fontsize=12,autopct="%1.1f%%", color=['red' ,'yellow'])
+            plt.savefig("Chart/Paid_of_Sales_type.png")
             plt.close()
             
             df["Profits_by_Direction"] = df.groupby("Direction")["Profits"].sum().plot(kind="line" ,title="Profits_by_Direction",fontsize=12)
