@@ -18,7 +18,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
-st.title("📊 Adham_Auto-Insight ETL System")
+st.title("📊 اذيك ي حودا  نورتنا 😂😍😍")
 st.markdown("اهلا ومرحبا بكم في موقع ادهم ابو عوض \n \n لتحليل البيانات ")
 
 uploaded_file = st.file_uploader("Updatee_Sales_Analysis_Report", type=['xlsx'])
