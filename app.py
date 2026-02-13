@@ -3,6 +3,19 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from functions import proccess_date 
 
+st.markdown("""
+    <style>
+    .main {
+        background-color: #0e1117;
+    }
+    stMetric {
+        background-color: #1e2130;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    </style>
+    """, unsafe_allow_box=True)
+
 st.set_page_config(page_title="Auto-Insight ETL Dashboard", layout="wide")
 
 st.title("📊 Auto-Insight ETL System")

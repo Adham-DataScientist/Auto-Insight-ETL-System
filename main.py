@@ -5,7 +5,7 @@ from tkinter import filedialog
 from functions import load_data , proccess_date , setup_enviroment , start_robot
 import matplotlib.pyplot as plt 
 from sklearn.linear_model import LinearRegression
-from SqlServer import export_sql
+#from SqlServer import export_sql
 
 def main ():
     root = tk.Tk()
@@ -23,7 +23,7 @@ def main ():
             df =load_data(file_path)
             if df is not None :
                 proccess_date(df)
-                export_sql(df)
+                #export_sql(df)
                 
                 df = df.drop(columns=['Date'])
             print(f"you have {df.shape[0]} rows and {df.shape[1]} columns")
