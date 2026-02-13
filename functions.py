@@ -11,22 +11,23 @@ def load_data(file_path):
     try : 
         if file_path.endswith('.csv'):
             df = pd.read_csv(file_path)
-            print('Download CSV')
+            print(f'Download CSV{df}')
         elif file_path.endswith('.xlsx') or file_path.endswith('.xls') :
             df =pd.read_excel(file_path)
-            print("Download Excel")
+            print(f"Download Excel{df}")
         else :
             print("No Selected file") 
         return df
     except Exception as a :
         print(f"Error {a} already exists")   
+        return df
         
 def proccess_date (df):
     if 'Date' in df.columns :
         df['Date'] = pd.to_datetime(df['Date'])
         df['Year'] = df['Date'].dt.year                
-        df['Month'] = df['Date'].dt.month_name               
-        df['Day'] = df['Date'].dt.day_name                
+        df['Month'] = df['Date'].dt.month_name()               
+        df['Day'] = df['Date'].dt.day_name()                
         return df
         
 def setup_enviroment():

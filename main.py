@@ -5,6 +5,7 @@ from tkinter import filedialog
 from functions import load_data , proccess_date , setup_enviroment , start_robot
 import matplotlib.pyplot as plt 
 from sklearn.linear_model import LinearRegression
+from SqlServer import export_sql
 
 def main ():
     root = tk.Tk()
@@ -20,7 +21,11 @@ def main ():
     if file_path :
         try :
             df =load_data(file_path)
-            proccess_date(df)
+            if df is not None :
+                proccess_date(df)
+                export_sql(df)
+                
+                df = df.drop(columns=['Date'])
             print(f"you have {df.shape[0]} rows and {df.shape[1]} columns")
             
             
@@ -62,6 +67,8 @@ def main ():
             print(df.head())
             print(df.describe())
             print(df.info())
+            save_csv=df.to_csv("Uploaded_CSV.csv"  , index=False)
+            print( "Saved CSV" ,save_csv)
          
             
             
@@ -81,7 +88,7 @@ def main ():
     model_auto =LinearRegression()
     model_auto.fit(x , y)
             
-    test = [[1000]]
+    test = pd.DataFrame([[1000]] , columns=['Price'])
     predicted = model_auto.predict(test)
     print(f"The final exam \n {predicted[0]:.0f}")      
                 
