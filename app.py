@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from functions import proccess_date 
 
+st.set_page_config(page_title="Auto-Insight ETL Dashboard", layout="wide")
 st.markdown("""
     <style>
     .main {
@@ -16,7 +17,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.set_page_config(page_title="Auto-Insight ETL Dashboard", layout="wide")
 
 st.title("📊 Auto-Insight ETL System")
 st.markdown("Welcome Adham! This dashboard previews your processed data and AI insights.")
