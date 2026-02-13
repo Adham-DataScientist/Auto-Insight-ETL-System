@@ -14,7 +14,7 @@ st.markdown("""
         border-radius: 10px;
     }
     </style>
-    """, unsafe_allow_box=True)
+    """, unsafe_allow_html=True)
 
 st.set_page_config(page_title="Auto-Insight ETL Dashboard", layout="wide")
 
