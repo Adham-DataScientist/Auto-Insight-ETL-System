@@ -22,7 +22,7 @@ st.markdown("""
 st.title("📊 اذيك ي حودا  نورتنا 😂😍😍 \n ان شاء الله هطوره واظبط الدنيا دعواتك لينا 💕❤️")
 st.markdown("اهلا ومرحبا بكم في موقع ادهم ابو عوض \n \n لتحليل البيانات ")
 
-uploaded_file = st.file_uploader("Updatee_Sales_Analysis_Report", type=['xlsx'])
+uploaded_file = st.file_uploader("Cleaned_Shipping_Data", type=['xlsx'])
 
 if uploaded_file is not None :
     
