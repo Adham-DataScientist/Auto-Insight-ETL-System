@@ -19,8 +19,8 @@ st.markdown("""
 
 
 
-st.title("📊 اذيك ي حودا  نورتنا 😂😍😍 \n ان شاء الله هطوره واظبط الدنيا دعواتك لينا 💕❤️")
-st.markdown("اهلا ومرحبا بكم في موقع ادهم ابو عوض \n \n لتحليل البيانات ")
+st.title("📊 Auto-Insight ETL System")
+st.markdown("Welcome MyDear ❤️")
 
 uploaded_file = st.file_uploader("Cleaned_Shipping_Data", type=['xlsx'])
 
@@ -74,9 +74,9 @@ if uploaded_file is not None :
             df['Month'] = pd.Categorical(df['Month'], categories=months_order, ordered=True)
 
        
-            st.line_chart(df.groupby('Month')['Profits'].sum())
             st.write("Sales Type Distribution")
             st.line_chart(df.groupby('Month')['Profits'].sum())
+       
 else:
     st.info("☝️ (Browse files)  يرجي اختيار الملف من")    
     # Final Test Update 🚀
