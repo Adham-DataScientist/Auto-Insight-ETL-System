@@ -52,9 +52,20 @@ if uploaded_file is not None:
         with col_setup1:
             category_col = st.selectbox("Select Categorical Column (e.g., Country/Brand):", all_columns)
         
-        with col_setup2:
-            numeric_col = st.selectbox("Select Numeric Column (e.g., Profits/Sales):", all_columns)
-            
+       # التنظيف الاحترافي الشامل للعمود الرقمي
+        # حذف علامات العملات، الفواصل، والمسافات المخفية
+        df[numeric_col] = (
+            df[numeric_col]
+            .astype(str)
+            .str.replace(r'[$\s,]', '', regex=True) # حذف $, الفواصل، والمسافات
+            .str.extract(r'(\d+\.?\d*)')[0]       # استخراج الأرقام فقط (الصحيحة والعشرية)
+        )
+        
+        # تحويل لبيانات رقمية واستبدال الـ NaN بأصفار
+        df[numeric_col] = pd.to_numeric(df[numeric_col], errors='coerce').fillna(0)
+
+        # سطر فحص ذكي (هيظهر لك أنت بس للتأكد إن الأرقام اتقرأت صح)
+        st.write("📊 Debugging: Top cleaned values in this column:", df[numeric_col].head().tolist())
         with col_setup3:
             time_col = st.selectbox("Select Time/Date Column (Optional):", ["None"] + all_columns)
 
