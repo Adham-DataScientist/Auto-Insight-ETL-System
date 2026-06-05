@@ -19,19 +19,14 @@ st.markdown("""
 st.title("📊 Universal Auto-Insight ETL System")
 st.markdown("Upload **any** sales dataset to extract instant business intelligence! 🚀")
 
-# نصيحة للمستخدم أونلاين
-st.warning("💡 Pro-Tip: For large datasets (>10MB), please use **CSV** format for instant, smooth processing!")
-
 # 2. رفع الملف
 uploaded_file = st.file_uploader("Upload your Sales Data File", type=['xlsx', 'csv'])
 
 if uploaded_file is not None:
-    # استخدام الـ Spinner لتأكيد المعالجة
-    with st.spinner("⏳ Analyzing data... Please wait a moment..."):
+    with st.spinner("⏳ Analyzing data... Please wait..."):
         try:
-            # قراءة الملف بطريقة موفرة ومؤمنة للسيرفر السحابي
+            # قراءة الملف بطريقة موفرة للذاكرة
             if uploaded_file.name.endswith('.csv'):
-                # قراءة أول 20,000 سطر فقط لضمان سرعة طائرة أونلاين
                 df = pd.read_csv(uploaded_file, nrows=20000)
             else:
                 df = pd.read_excel(uploaded_file, engine='openpyxl', nrows=5000)
@@ -51,39 +46,48 @@ if uploaded_file is not None:
             
             col_setup1, col_setup2, col_setup3 = st.columns(3)
             with col_setup1:
-                category_col = st.selectbox("Select Categorical Column (e.g., Country):", all_columns)
+                category_col = st.selectbox("Select Categorical Column (e.g., day_name):", all_columns, index=0)
             with col_setup2:
-                numeric_col = st.selectbox("Select Numeric Column (e.g., Profits):", all_columns)
+                # محاولة اختيار عمود مختلف تلقائياً لتفادي لغبطة المستخدم
+                default_num_index = 1 if len(all_columns) > 1 else 0
+                numeric_col = st.selectbox("Select Numeric Column:", all_columns, index=default_num_index)
             with col_setup3:
                 time_col = st.selectbox("Select Time/Date Column (Optional):", ["None"] + all_columns)
 
-            # تنظيف العمود الرقمي سريعاً
-            if df[numeric_col].dtype == 'object':
-                df[numeric_col] = df[numeric_col].astype(str).str.replace('$', '', regex=False).str.replace(',', '', regex=False).str.strip()
-            df[numeric_col] = pd.to_numeric(df[numeric_col], errors='coerce').fillna(0)
-
             st.divider()
+
+            # ---- [فحص وحماية الحسابات من التضارب] ----
+            # بنعمل عمود جديد خالص مخصص للحسابات عشان الأعمدة الأصلية متضربش
+            calc_col = "Cleaned_Amount"
+            
+            if df[numeric_col].dtype == 'object':
+                df[calc_col] = df[numeric_col].astype(str).str.replace('$', '', regex=False).str.replace(',', '', regex=False).str.strip()
+            else:
+                df[calc_col] = df[numeric_col]
+                
+            df[calc_col] = pd.to_numeric(df[calc_col], errors='coerce').fillna(0)
 
             # ---- [عرض مؤشرات الأداء الحية KPIs] ----
             st.subheader("📈 Dynamic Business Insights")
             
             metric1, metric2, metric3 = st.columns(3)
             metric1.metric("Processed Transactions", f"{len(df):,}")
-            metric2.metric(f"Total {numeric_col}", f"${df[numeric_col].sum():,.2f}")
-            metric3.metric(f"Average {numeric_col}", f"${df[numeric_col].mean():,.2f}")
+            metric2.metric(f"Total {numeric_col}", f"${df[calc_col].sum():,.2f}")
+            metric3.metric(f"Average {numeric_col}", f"${df[calc_col].mean():,.2f}")
 
             # ---- [الرسومات البيانية التفاعلية] ----
             chart_col1, chart_col2 = st.columns(2)
             
             with chart_col1:
                 st.write(f"**Total {numeric_col} by {category_col}**")
-                category_summary = df.groupby(category_col)[numeric_col].sum().head(15)
+                # التجميع بيحصل بآمان هنا لأن الحسابات في عمود منفصل
+                category_summary = df.groupby(category_col)[calc_col].sum().head(15)
                 st.bar_chart(category_summary)
             
             with chart_col2:
                 if time_col != "None":
                     st.write(f"**{numeric_col} Trends Over {time_col}**")
-                    time_summary = df.groupby(time_col)[numeric_col].sum().head(30)
+                    time_summary = df.groupby(time_col)[calc_col].sum().head(30)
                     st.line_chart(time_summary)
                 else:
                     st.warning("⚠️ Select a Time Column to display the trend line chart.")
